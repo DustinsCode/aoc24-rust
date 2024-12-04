@@ -24,7 +24,7 @@ pub fn part_two(input: &str) -> Option<u32> {
     for row in rows {
         let row_items = row.split(' ').collect::<Vec<&str>>();
 
-        if (check_safety(row_items.clone()) && !row.is_empty()) {
+        if check_safety(row_items.clone()) && !row.is_empty() {
             safe += 1
         } else if !row.is_empty() {
             for i in 0..row_items.len() {
