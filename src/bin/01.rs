@@ -1,7 +1,6 @@
 advent_of_code::solution!(1);
 
 pub fn part_one(input: &str) -> Option<u32> {
-
     let pre_list = input.split('\n').collect::<Vec<&str>>();
 
     let mut left: Vec<i32> = vec![];
@@ -28,7 +27,6 @@ pub fn part_one(input: &str) -> Option<u32> {
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
-
     let pre_list = input.split('\n').collect::<Vec<&str>>();
 
     let mut left: Vec<u32> = vec![];
