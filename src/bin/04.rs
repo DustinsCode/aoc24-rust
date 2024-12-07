@@ -17,7 +17,7 @@ pub fn part_one(input: &str) -> Option<u32> {
         for (x, char) in row.iter().enumerate() {
             if *char == 'X' {
                 // check ->
-                if x < row.len() - 4 {
+                if x <= row.len() - 4 {
                     let word = matrix[y][x..x + 4].iter().collect::<String>();
                     if word == xmas_str {
                         xmas_count += 1;
@@ -57,7 +57,7 @@ pub fn part_one(input: &str) -> Option<u32> {
                 }
 
                 // check ↘
-                if y < matrix.len() - 4 && x < row.len() - 4 {
+                if y < matrix.len() - 4 && x <= row.len() - 4 {
                     let mut word = String::new();
 
                     for i in 0..4 {
@@ -83,7 +83,7 @@ pub fn part_one(input: &str) -> Option<u32> {
                 }
 
                 // check ↗
-                if y > 2 && x < row.len() - 4 {
+                if y > 2 && x <= row.len() - 4 {
                     let mut word = String::new();
 
                     for i in 0..4 {
@@ -125,7 +125,7 @@ mod tests {
     #[test]
     fn test_part_one() {
         let result = part_one(&advent_of_code::template::read_file("examples", DAY));
-        assert_eq!(result, Some(18));
+        assert_eq!(result, Some(20));
     }
 
     #[test]
