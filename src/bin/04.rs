@@ -115,7 +115,49 @@ pub fn part_one(input: &str) -> Option<u32> {
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
-    None
+    let mas_str = "MAS";
+    let mut x_mas_count: u32 = 0;
+
+    let rows = input.split('\n').collect::<Vec<&str>>();
+
+    let matrix: Vec<Vec<char>> = rows
+        .iter()
+        .map(|s| s.chars().collect::<Vec<char>>())
+        .collect();
+
+    for (y, row) in matrix.iter().enumerate() {
+        for (x, char) in row.iter().enumerate() {
+            if *char == 'A' && x > 0 && x < rows.len() - 2 && y > 0 && y < matrix.len() - 2 {
+                let mut diag_one = String::new();
+                let mut diag_two = String::new();
+
+                diag_one.push(matrix[y - 1][x - 1]);
+                diag_one.push(matrix[y][x]);
+                diag_one.push(matrix[y + 1][x + 1]);
+
+                diag_two.push(matrix[y + 1][x - 1]);
+                diag_two.push(matrix[y][x]);
+                diag_two.push(matrix[y - 1][x + 1]);
+
+                let diag_one_rev = diag_one.chars().rev().collect::<String>();
+                let diag_two_rev = diag_two.chars().rev().collect::<String>();
+
+                // clippy is complaining about this, but it was also complaining about having them
+                // all in one condition with ||s
+                if diag_one == mas_str && diag_two == mas_str {
+                    x_mas_count += 1;
+                } else if diag_one_rev == mas_str && diag_two == mas_str {
+                    x_mas_count += 1;
+                } else if diag_one_rev == mas_str && diag_two_rev == mas_str {
+                    x_mas_count += 1;
+                } else if diag_one == mas_str && diag_two_rev == mas_str {
+                    x_mas_count += 1;
+                }
+            }
+        }
+    }
+
+    Some(x_mas_count)
 }
 
 #[cfg(test)]
@@ -125,12 +167,12 @@ mod tests {
     #[test]
     fn test_part_one() {
         let result = part_one(&advent_of_code::template::read_file("examples", DAY));
-        assert_eq!(result, Some(20));
+        assert_eq!(result, Some(18));
     }
 
     #[test]
     fn test_part_two() {
         let result = part_two(&advent_of_code::template::read_file("examples", DAY));
-        assert_eq!(result, None);
+        assert_eq!(result, Some(9));
     }
 }
